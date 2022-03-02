@@ -4,6 +4,7 @@ set -e
 
 SCRIPT_PATH=$(readlink -f "$0")
 SCRIPT_DIR_PATH=$(dirname "$SCRIPT_PATH")
+REPO_DIR_PATH=$(realpath "$SCRIPT_DIR_PATH/..")
 
 delete_existing_link()
 {
@@ -16,7 +17,7 @@ delete_existing_link()
 
 link_config_dir()
 {
-    DOTFILE_PATH="$SCRIPT_DIR_PATH/config/$1"
+    DOTFILE_PATH="$REPO_DIR_PATH/config/$1"
     DOTFILE_LINK_PATH="$HOME/.config/$1"
 
     echo "Linking dir $DOTFILE_PATH to $DOTFILE_LINK_PATH"
