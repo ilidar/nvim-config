@@ -20,7 +20,7 @@ DOTFILE_LINK_PATH="$HOME/.config/nvim"
 
 echo "Linking dir $DOTFILE_PATH to $DOTFILE_LINK_PATH"
 
-mkdir -p $DOTFILE_LINK_PATH
+mkdir -p $HOME/.config
 delete_existing_link $DOTFILE_LINK_PATH
 
 ln -s -f "$DOTFILE_PATH" "$DOTFILE_LINK_PATH"
