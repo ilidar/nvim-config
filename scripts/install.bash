@@ -15,16 +15,12 @@ delete_existing_link()
     fi
 }
 
-link_config_dir()
-{
-    DOTFILE_PATH="$REPO_DIR_PATH/config/$1"
-    DOTFILE_LINK_PATH="$HOME/.config/$1"
+DOTFILE_PATH="$REPO_DIR_PATH/config/nvim"
+DOTFILE_LINK_PATH="$HOME/.config/nvim"
 
-    echo "Linking dir $DOTFILE_PATH to $DOTFILE_LINK_PATH"
+echo "Linking dir $DOTFILE_PATH to $DOTFILE_LINK_PATH"
 
-    delete_existing_link $DOTFILE_LINK_PATH
-    ln -s -f "$DOTFILE_PATH" "$DOTFILE_LINK_PATH"
-}
+mkdir -p $DOTFILE_LINK_PATH
+delete_existing_link $DOTFILE_LINK_PATH
 
-link_config_dir nvim
-
+ln -s -f "$DOTFILE_PATH" "$DOTFILE_LINK_PATH"
