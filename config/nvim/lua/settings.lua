@@ -37,6 +37,7 @@ opt.tabstop = 4 -- Number of spaces tabs count for
 opt.termguicolors = true -- True color support
 --opt.wildmode = {'list', 'longest'}  -- Command-line completion mode
 opt.wrap = false -- Disable line wrap
+opt.cul = true -- Cursor line
 
 ------------------------------------------------------------
 -- Colors and Fonds
@@ -54,3 +55,9 @@ opt.backup = false
 opt.writebackup = false
 opt.undofile = true
 opt.swapfile = false
+
+------------------------------------------------------------
+-- Utils
+------------------------------------------------------------
+opt.updatetime = 100
+opt.signcolumn = "yes"
