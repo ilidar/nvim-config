@@ -38,6 +38,8 @@ opt.termguicolors = true -- True color support
 --opt.wildmode = {'list', 'longest'}  -- Command-line completion mode
 opt.wrap = false -- Disable line wrap
 opt.cul = true -- Cursor line
+opt.title = true
+opt.clipboard = "unnamedplus"
 
 ------------------------------------------------------------
 -- Colors and Fonds
