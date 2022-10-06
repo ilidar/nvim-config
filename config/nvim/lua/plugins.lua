@@ -12,6 +12,7 @@ require("plugins.lualine")
 require("plugins.neoformat")
 require("plugins.lspkind")
 require("plugins.treesitter")
+require("plugins.registers")
 
 require("nvim-autopairs").setup()
 require("trouble").setup()
