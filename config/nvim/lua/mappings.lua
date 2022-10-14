@@ -104,3 +104,11 @@ U.map("n", "<leader>gg", ":GitTreeToggle<CR>")
 -- Docker & LSP
 ------------------------------------------------------------
 U.map("n", "<F2>", '<cmd>lua require("utils").restart_lsp()<CR>')
+
+------------------------------------------------------------
+-- Neovim-Tmux Navigation
+------------------------------------------------------------
+U.map("n", "<C-h>", "<cmd>lua require'nvim-tmux-navigation'.NvimTmuxNavigateLeft()<CR>")
+U.map("n", "<C-j>", "<cmd>lua require'nvim-tmux-navigation'.NvimTmuxNavigateDown()<CR>")
+U.map("n", "<C-k>", "<cmd>lua require'nvim-tmux-navigation'.NvimTmuxNavigateUp()<CR>")
+U.map("n", "<C-l>", "<cmd>lua require'nvim-tmux-navigation'.NvimTmuxNavigateRight()<CR>")
