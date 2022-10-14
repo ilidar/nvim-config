@@ -112,3 +112,8 @@ U.map("n", "<C-h>", "<cmd>lua require'nvim-tmux-navigation'.NvimTmuxNavigateLeft
 U.map("n", "<C-j>", "<cmd>lua require'nvim-tmux-navigation'.NvimTmuxNavigateDown()<CR>")
 U.map("n", "<C-k>", "<cmd>lua require'nvim-tmux-navigation'.NvimTmuxNavigateUp()<CR>")
 U.map("n", "<C-l>", "<cmd>lua require'nvim-tmux-navigation'.NvimTmuxNavigateRight()<CR>")
+
+------------------------------------------------------------
+-- Clang
+------------------------------------------------------------
+U.map("n", "<leader>sh", ":ClangdSwitchSourceHeader<CR>")
