@@ -14,6 +14,7 @@ require("plugins.lspkind")
 require("plugins.treesitter")
 require("plugins.registers")
 require("plugins.lspsaga")
+require("plugins.symbols-outline")
 
 require("nvim-autopairs").setup()
 require("trouble").setup()

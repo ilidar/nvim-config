@@ -128,3 +128,8 @@ U.map("n", "<leader>pd", "<cmd>Lspsaga peek_definition<CR>")
 U.map("n", "<leader>cd", "<cmd>Lspsaga show_line_diagnostics<CR>")
 U.map("n", "<leader>cd", "<cmd>Lspsaga show_cursor_diagnostics<CR>")
 U.map("n", "K", "<cmd>Lspsaga hover_doc<CR>")
+
+------------------------------------------------------------
+-- symbols-outline
+------------------------------------------------------------
+U.map("n", "<leader>so", "<cmd>SymbolsOutline<CR>")
