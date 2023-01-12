@@ -6,7 +6,7 @@ require("lspconfig").pyright.setup({
     flags = {
         debounce_text_changes = 150,
     },
-    settings = {
+    --[[ settings = {
         python = {
             analysis = {
                 autoSearchPaths = false,
@@ -14,5 +14,5 @@ require("lspconfig").pyright.setup({
                 diagnosticMode = "openFilesOnly",
             },
         },
-    },
+    }, ]]
 })
