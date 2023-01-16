@@ -48,7 +48,7 @@ cmd("syntax on")
 cmd("colorscheme gruvbox")
 opt.background = "dark"
 opt.encoding = "utf8"
-opt.colorcolumn = "120"
+-- opt.colorcolumn = "120"
 
 ------------------------------------------------------------
 -- Backups
