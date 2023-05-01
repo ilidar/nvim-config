@@ -21,6 +21,9 @@ local function lsp_on_attach(client, bufnr)
     buf_set_keymap("n", "<leader>D", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
     buf_set_keymap("n", "<leader>gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
     buf_set_keymap("n", "<leader>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+    buf_set_keymap("i", "<C-J>", 'copilot#Accept("<CR>")', { silent = true, expr = true })
+    buf_set_keymap("i", "<C-H>", 'copilot#Previous()', { silent = true, expr = true })
+    buf_set_keymap("i", "<C-K>", 'copilot#Next()', { silent = true, expr = true })
 end
 
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
