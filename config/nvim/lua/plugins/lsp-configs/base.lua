@@ -24,6 +24,7 @@ local function lsp_on_attach(client, bufnr)
 end
 
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
+capabilities.offsetEncoding = { "utf-16" }
 
 return {
     lsp_on_attach = lsp_on_attach,
