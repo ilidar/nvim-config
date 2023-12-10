@@ -121,7 +121,7 @@ U.map("n", "<leader>sh", ":ClangdSwitchSourceHeader<CR>")
 ------------------------------------------------------------
 -- lspsaga
 ------------------------------------------------------------
-U.map("n", "<leader>gh", "<cmd>Lspsaga lsp_finder<CR>")
+U.map("n", "<leader>gh", "<cmd>Lspsaga finder<CR>")
 U.map("n", "<leader>ca", "<cmd>Lspsaga code_action<CR>")
 U.map("n", "<leader>rn", "<cmd>Lspsaga rename<CR>")
 U.map("n", "<leader>pd", "<cmd>Lspsaga peek_definition<CR>")
