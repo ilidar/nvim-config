@@ -27,4 +27,8 @@ return {
     { "kosayoda/nvim-lightbulb" },
     { "neovim/nvim-lspconfig" },
     { "sbdchd/neoformat" },
+    { "b3nj5m1n/kommentary" },
+    { "windwp/nvim-autopairs" },
+    { "folke/trouble.nvim" },
+    { "ray-x/lsp_signature.nvim" },
 }
