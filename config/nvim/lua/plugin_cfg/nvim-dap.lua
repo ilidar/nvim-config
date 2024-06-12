@@ -1,3 +1,9 @@
+
+return {
+    "mfussenegger/nvim-dap"
+}
+
+--[[
 local dap = require("dap")
 local HOME = os.getenv("HOME")
 
@@ -150,3 +156,4 @@ end
 M.setup()
 
 return M
+]]

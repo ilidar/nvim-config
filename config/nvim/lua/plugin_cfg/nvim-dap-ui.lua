@@ -1,4 +1,7 @@
-require("dapui").setup({
+
+return {
+    "rcarriga/nvim-dap-ui",
+    opts = {
   icons = { expanded = "▾", collapsed = "▸" },
   mappings = {
     -- Use a table to apply multiple mappings
@@ -52,4 +55,7 @@ require("dapui").setup({
   render = {
     max_type_length = nil, -- Can be integer or nil.
   }
-})
+
+    }
+}
+
