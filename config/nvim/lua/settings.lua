@@ -8,11 +8,11 @@ local opt = vim.opt -- to set options
 ------------------------------------------------------------
 -- General
 ------------------------------------------------------------
-cmd("filetype plugin on")
-cmd("filetype indent on")
-
 g.mapleader = ","
 g.maplocalleader = ","
+
+opt.filetype.plugin = true
+opt.filetype.indent = true
 
 ------------------------------------------------------------
 -- UI
