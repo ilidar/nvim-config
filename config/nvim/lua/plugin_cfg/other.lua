@@ -5,7 +5,6 @@ return {
     { "editorconfig/editorconfig-vim" },
     { "aklt/plantuml-syntax" },
     { "lukas-reineke/indent-blankline.nvim" },
-    { "tversteeg/registers.nvim" },
     { "hoob3rt/lualine.nvim" },
     { "kosayoda/nvim-lightbulb" },
     { "neovim/nvim-lspconfig" },
