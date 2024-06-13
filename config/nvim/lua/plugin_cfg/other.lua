@@ -1,8 +1,6 @@
 return {
-    { "nvim-lua/plenary.nvim" },
     { "nvim-telescope/telescope.nvim" },
     { "rktjmp/lush.nvim" },
-    { "kyazdani42/nvim-web-devicons" },
     { "romgrk/barbar.nvim" },
     { "sakhnik/nvim-gdb" },
     { "chr4/nginx.vim" },
