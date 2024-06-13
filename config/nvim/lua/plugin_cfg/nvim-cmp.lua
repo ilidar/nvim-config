@@ -2,14 +2,18 @@ return {
     "hrsh7th/nvim-cmp",
     event = "InsertEnter",
     dependencies = {
-        "hrsh7th/cmp-buffer", -- source for text in buffer
-        "hrsh7th/cmp-path", -- source for file system paths
-        "rafamadriz/friendly-snippets", -- useful snippets
-        "onsails/lspkind.nvim", -- vs-code like pictograms
+        "hrsh7th/cmp-buffer",
+        "hrsh7th/cmp-path",
+        "hrsh7th/cmp-nvim-lsp",
+        "hrsh7th/cmp-buffer",
+        "hrsh7th/cmp-cmdline",
+        "hrsh7th/cmp-vsnip",
+        "hrsh7th/vim-vsnip",
+        "onsails/lspkind.nvim",
     },
     config = function()
         local cmp = require("cmp")
-        local lspkind = require('lspkind')
+        local lspkind = require("lspkind")
         local select_opts = { behavior = cmp.SelectBehavior.Select }
 
         cmp.setup({
@@ -25,13 +29,14 @@ return {
                 { name = "nvim_lsp" },
                 { name = "vsnip" },
                 { name = "buffer", keyword_length = 3 },
+                { name = "path" },
             }),
-      	    formatting = {
-		format = lspkind.cmp_format({
-			maxwidth = 50,
-			ellipsis_char = "...",
-		    }),
-	    },
+            formatting = {
+                format = lspkind.cmp_format({
+                    maxwidth = 50,
+                    ellipsis_char = "...",
+                }),
+            },
             mapping = cmp.mapping.preset.insert({
                 ["<C-b>"] = cmp.mapping.scroll_docs(-4),
                 ["<C-f>"] = cmp.mapping.scroll_docs(4),
@@ -56,33 +61,6 @@ return {
                         fallback()
                     end
                 end, { "i", "s" }),
-            }),
-        })
-
-        -- Set configuration for specific filetype.
-        cmp.setup.filetype("gitcommit", {
-            sources = cmp.config.sources({
-                { name = "cmp_git" }, -- You can specify the `cmp_git` source if you were installed it.
-            }, {
-                { name = "buffer" },
-            }),
-        })
-
-        -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
-        cmp.setup.cmdline("/", {
-            mapping = cmp.mapping.preset.cmdline(),
-            sources = {
-                { name = "buffer" },
-            },
-        })
-
-        -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-        cmp.setup.cmdline(":", {
-            mapping = cmp.mapping.preset.cmdline(),
-            sources = cmp.config.sources({
-                { name = "path" },
-            }, {
-                { name = "cmdline" },
             }),
         })
     end,
