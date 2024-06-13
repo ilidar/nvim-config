@@ -69,6 +69,7 @@ return {
             "tsserver",
             "cssls",
             "yamlls",
+            "texlab"
         }
 
         for _, server in ipairs(servers) do
