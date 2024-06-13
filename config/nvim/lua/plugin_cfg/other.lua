@@ -10,13 +10,11 @@ return {
     { "lukas-reineke/indent-blankline.nvim" },
     { "tversteeg/registers.nvim" },
     { "hoob3rt/lualine.nvim" },
-    { "simrat39/symbols-outline.nvim" },
     { "kosayoda/nvim-lightbulb" },
     { "neovim/nvim-lspconfig" },
     { "sbdchd/neoformat" },
     { "b3nj5m1n/kommentary" },
     { "windwp/nvim-autopairs" },
-    { "folke/trouble.nvim" },
     { "ray-x/lsp_signature.nvim", event = "VeryLazy" },
     { "stevearc/dressing.nvim", event = "VeryLazy" },
 }

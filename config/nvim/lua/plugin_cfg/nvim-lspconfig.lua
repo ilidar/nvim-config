@@ -47,6 +47,7 @@ return {
 
         -- Common capabilities for all LSP servers
         local capabilities = cmp_nvim_lsp.default_capabilities()
+        capabilities.offsetEncoding = { "utf-16" }
 
         -- Diagnostic symbols
         local signs = { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }

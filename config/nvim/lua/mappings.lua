@@ -42,7 +42,18 @@ U.map("n", "<leader>nn", "<cmd>NvimTreeToggle<CR>")
 ------------------------------------------------------------
 -- Trouble
 ------------------------------------------------------------
-U.map("n", "<leader>xx", "<cmd>TroubleToggle<CR>")
+-- Diagnostics
+U.map("n", "<leader>xx", "<cmd>Trouble diagnostics toggle<CR>")
+-- Buffer Diagnostics
+U.map("n", "<leader>xX", "<cmd>Trouble diagnostics toggle filter.buf=0<CR>")
+-- Symbols
+U.map("n", "<leader>so", "<cmd>Trouble symbols toggle focus=false<CR>")
+-- LSP Definitions / references / ...
+U.map("n", "<leader>cl", "<cmd>Trouble lsp toggle focus=false win.position=right<CR>")
+-- Location List
+U.map("n", "<leader>xL", "<cmd>Trouble loclist toggle<CR>")
+-- Quickfix List
+U.map("n", "<leader>xQ", "<cmd>Trouble qflist toggle<CR>")
 
 ------------------------------------------------------------
 -- Neoformat
@@ -113,8 +124,3 @@ U.map("n", "<C-l>", "<cmd>lua require'nvim-tmux-navigation'.NvimTmuxNavigateRigh
 -- Clang
 ------------------------------------------------------------
 U.map("n", "<leader>sh", ":ClangdSwitchSourceHeader<CR>")
-
-------------------------------------------------------------
--- symbols-outline
-------------------------------------------------------------
-U.map("n", "<leader>so", "<cmd>SymbolsOutline<CR>")
