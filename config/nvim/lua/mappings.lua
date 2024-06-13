@@ -50,25 +50,21 @@ U.map("n", "<leader>xx", "<cmd>TroubleToggle<CR>")
 U.map("n", "<leader>cf", "<cmd>Neoformat<CR>")
 
 ------------------------------------------------------------
--- nvim-dap-ui
+-- DAP
 ------------------------------------------------------------
-U.map("n", "<F5>", "<cmd>lua require('plugins.nvim-dap').continue()<CR>")
-U.map("n", "<F10>", "<cmd>lua require('plugins.nvim-dap').step_over()<CR>")
-U.map("n", "<F11>", "<cmd>lua require('plugins.nvim-dap').step_into()<CR>")
-U.map("n", "<F12>", "<cmd>lua require('plugins.nvim-dap').step_out()<CR>")
-U.map("n", "<F7>", "<cmd>lua require('plugins.nvim-dap').toggle_breakpoint()<CR>")
-U.map(
-	"n",
-	"<F8>",
-	"<cmd>lua require('plugins.nvim-dap').toggle_breakpoint(vim.fn.input('Breakpoint Condition: '), nil, nil, true)<CR>"
-)
-U.map("n", "<leader>dv", '<cmd>lua require("plugins.nvim-dap").widgets.hover()<CR>')
-U.map("n", "<leader>df", '<cmd>lua local w = require("plugins.nvim-dap").widgets; w.centered_float(w.frames)<CR>')
-U.map("n", "<leader>ds", '<cmd>lua local w = require("plugins.nvim-dap").widgets; w.centered_float(w.scopes)<CR>')
-U.map("n", "<leader>dS", '<cmd>lua require("plugins.nvim-dap").sidebar.toggle()<CR>')
-U.map("n", "<leader>dr", '<cmd>lua require("plugins.nvim-dap").repl.toggle({height=15})<CR>')
-U.map("n", "<leader>dg", '<cmd>lua require("plugins.nvim-dap").run_to_cursor()<CR>')
-U.map("n", "<leader>dc", '<cmd>lua require("dap").disconnect({ terminateDebuggee = true });require"dap".close()<CR>')
+U.map("n", "<F5>", "<cmd>lua require('dap').continue()<CR>")
+U.map("n", "<F10>", "<cmd>lua require('dap').step_over()<CR>")
+U.map("n", "<F11>", "<cmd>lua require('dap').step_into()<CR>")
+U.map("n", "<F12>", "<cmd>lua require('dap').step_out()<CR>")
+U.map("n", "<F7>", "<cmd>lua require('dap').toggle_breakpoint()<CR>")
+U.map("n", "<F8>", "<cmd>lua require('dap').toggle_breakpoint(vim.fn.input('Breakpoint Condition: '), nil, nil, true)<CR>")
+U.map("n", "<leader>dv", '<cmd>lua require("dap.ui.widgets").hover()<CR>')
+U.map("n", "<leader>df", '<cmd>lua local w = require("dap.ui.widgets"); w.centered_float(w.frames)<CR>')
+U.map("n", "<leader>ds", '<cmd>lua local w = require("dap.ui.widgets"); w.centered_float(w.scopes)<CR>')
+U.map("n", "<leader>dS", '<cmd>lua require("dap.ui.widgets").sidebar(widgets.scopes).toggle()<CR>')
+U.map("n", "<leader>dr", '<cmd>lua require("dap.repl").toggle({height=15})<CR>')
+U.map("n", "<leader>dg", '<cmd>lua require("dap").run_to_cursor()<CR>')
+U.map("n", "<leader>dc", '<cmd>lua require("dap").disconnect({ terminateDebuggee = true }); require("dap").close()<CR>')
 U.map("n", "<leader>du", '<cmd>lua require("dapui").toggle()<CR>')
 
 ------------------------------------------------------------
