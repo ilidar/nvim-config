@@ -1,12 +1,9 @@
 return {
     { "nvim-telescope/telescope.nvim" },
-    { "rktjmp/lush.nvim" },
     { "romgrk/barbar.nvim" },
-    { "sakhnik/nvim-gdb" },
     { "chr4/nginx.vim" },
     { "editorconfig/editorconfig-vim" },
     { "aklt/plantuml-syntax" },
-    { "nvim-neotest/nvim-nio" },
     { "lukas-reineke/indent-blankline.nvim" },
     { "tversteeg/registers.nvim" },
     { "hoob3rt/lualine.nvim" },
