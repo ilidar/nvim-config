@@ -1,5 +1,6 @@
 return {
     "kyazdani42/nvim-tree.lua",
+    dependencies = "nvim-tree/nvim-web-devicons",
     opts = {
         auto_reload_on_write = true,
         disable_netrw = false,
