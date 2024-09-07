@@ -31,8 +31,8 @@ U.map("n", "<leader>tl", ":tabnext<CR>")
 ------------------------------------------------------------
 -- Telescope
 ------------------------------------------------------------
-U.map("n", "<C-S-N>", "<cmd>Telescope find_files<CR>")
-U.map("n", "<C-S-G>", "<cmd>Telescope live_grep<CR>")
+U.map("n", "<C-n>", "<cmd>Telescope find_files<CR>")
+U.map("n", "<C-g>", "<cmd>Telescope live_grep<CR>")
 
 ------------------------------------------------------------
 -- nvim-tree
