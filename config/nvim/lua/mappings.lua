@@ -68,7 +68,11 @@ U.map("n", "<F10>", "<cmd>lua require('dap').step_over()<CR>")
 U.map("n", "<F11>", "<cmd>lua require('dap').step_into()<CR>")
 U.map("n", "<F12>", "<cmd>lua require('dap').step_out()<CR>")
 U.map("n", "<F7>", "<cmd>lua require('dap').toggle_breakpoint()<CR>")
-U.map("n", "<F8>", "<cmd>lua require('dap').toggle_breakpoint(vim.fn.input('Breakpoint Condition: '), nil, nil, true)<CR>")
+U.map(
+    "n",
+    "<F8>",
+    "<cmd>lua require('dap').toggle_breakpoint(vim.fn.input('Breakpoint Condition: '), nil, nil, true)<CR>"
+)
 U.map("n", "<leader>dv", '<cmd>lua require("dap.ui.widgets").hover()<CR>')
 U.map("n", "<leader>df", '<cmd>lua local w = require("dap.ui.widgets"); w.centered_float(w.frames)<CR>')
 U.map("n", "<leader>ds", '<cmd>lua local w = require("dap.ui.widgets"); w.centered_float(w.scopes)<CR>')
@@ -124,3 +128,9 @@ U.map("n", "<C-l>", "<cmd>lua require'nvim-tmux-navigation'.NvimTmuxNavigateRigh
 -- Clang
 ------------------------------------------------------------
 U.map("n", "<leader>sh", ":ClangdSwitchSourceHeader<CR>")
+
+------------------------------------------------------------
+-- Copilot
+------------------------------------------------------------
+vim.api.nvim_set_keymap("i", "<M-l>", 'copilot#Accept("<CR>")', { expr = true, silent = true, noremap = true })
+vim.api.nvim_set_keymap("i", "<M-j>", "copilot#Next()", { expr = true, silent = true, noremap = true })
