@@ -7,7 +7,6 @@ return {
     { "hoob3rt/lualine.nvim" },
     { "kosayoda/nvim-lightbulb" },
     { "neovim/nvim-lspconfig" },
-    { "sbdchd/neoformat" },
     { "b3nj5m1n/kommentary" },
     { "windwp/nvim-autopairs" },
     { "ray-x/lsp_signature.nvim", event = "VeryLazy" },
