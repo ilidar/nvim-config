@@ -20,7 +20,12 @@ return {
         formatters_by_ft = {
             lua = { "stylua" },
             python = { "isort", "black" },
-            html = { "djlint" },
+            javascript = { "prettier" },
+            typescript = { "prettier" },
+            css = { "prettier" },
+            json = { "prettier" },
+            html = { "prettier" },
+            htmldjango = { "prettier" },
         },
         format_on_save = { timeout_ms = 500 },
     },
