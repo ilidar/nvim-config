@@ -47,7 +47,6 @@ return {
 
         -- Common capabilities for all LSP servers
         local capabilities = cmp_nvim_lsp.default_capabilities()
-        capabilities.offsetEncoding = { "utf-16" }
 
         -- Diagnostic symbols
         local signs = { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
@@ -60,23 +59,31 @@ return {
         local servers = {
             "bashls",
             "cmake",
-            "clangd",
             "dockerls",
             "remark_ls",
             "pyright",
-            "r_language_server",
             "rust_analyzer",
             "ts_ls",
             "cssls",
             "yamlls",
-            "texlab"
+            "texlab",
         }
 
         for _, server in ipairs(servers) do
-            lspconfig[server].setup({
-                capabilities = capabilities,
-            })
+            if vim.fn.executable(server) == 1 then
+                lspconfig[server].setup({
+                    capabilities = capabilities,
+                })
+            else
+                vim.notify(server .. " is not installed", vim.log.levels.WARN)
+            end
         end
+
+        lspconfig.clangd.setup({
+            capabilities = vim.tbl_extend("keep", capabilities, {
+                offsetEncoding = { "utf-16" },
+            }),
+        })
 
         lspconfig.html.setup({
             cmd = { "vscode-html-language-server", "--stdio" },
