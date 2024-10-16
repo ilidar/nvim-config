@@ -25,7 +25,7 @@ return {
             css = { "prettier" },
             json = { "prettier" },
             html = { "prettier" },
-            htmldjango = { "prettier" },
+            htmldjango = { "djlint" },
         },
         format_on_save = { timeout_ms = 500 },
     },
