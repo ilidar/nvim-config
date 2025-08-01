@@ -9,6 +9,11 @@ return {
         strategies = {
             chat = {
                 adapter = "openai",
+                model = "gpt-4.1",
+            },
+            inline = {
+                adapter = "openai",
+                model = "gpt-4.1",
             },
         },
         log_level = "DEBUG",
