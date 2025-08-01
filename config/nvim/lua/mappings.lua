@@ -129,3 +129,9 @@ U.map("n", "<leader>sh", ":ClangdSwitchSourceHeader<CR>")
 ------------------------------------------------------------
 vim.api.nvim_set_keymap("i", "<M-l>", 'copilot#Accept("<CR>")', { expr = true, silent = true, noremap = true })
 vim.api.nvim_set_keymap("i", "<M-j>", "copilot#Next()", { expr = true, silent = true, noremap = true })
+
+------------------------------------------------------------
+-- codecompanion.nvim
+------------------------------------------------------------
+U.map("n", "<leader>mm", ":CodeCompanionChat Toggle<CR>")
+U.map("n", "<leader>ma", ":CodeCompanionActions<CR>")
