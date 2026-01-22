@@ -78,10 +78,11 @@ U.map("n", "<leader>dc", '<cmd>lua require("dap").disconnect({ terminateDebuggee
 U.map("n", "<leader>du", '<cmd>lua require("dapui").toggle()<CR>')
 
 ------------------------------------------------------------
--- kommentary
+-- Comment.nvim (mappings configured in plugin opts)
+-- <leader>cc - toggle line comment
+-- <leader>c  - comment operator (works with motions/visual)
+-- <leader>bc - toggle block comment
 ------------------------------------------------------------
-vim.api.nvim_set_keymap("n", "<leader>cc", "<Plug>kommentary_line_default", {})
-vim.api.nvim_set_keymap("v", "<leader>cc", "<Plug>kommentary_visual_default", {})
 
 ------------------------------------------------------------
 -- barbar.nvim

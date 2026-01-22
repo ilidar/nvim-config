@@ -56,13 +56,19 @@ function M.get_cmd()
 end
 
 function M.restart_lsp()
-    local base = require("plugins.lsp-configs.base")
+    -- Get capabilities from blink.cmp
+    local capabilities = require("blink.cmp").get_lsp_capabilities()
+    capabilities = vim.tbl_extend("keep", capabilities, {
+        offsetEncoding = { "utf-16" },
+    })
 
     require("lspconfig").clangd.setup({
-        on_attach = base.lsp_on_attach,
-        capabilities = base.capabilities,
+        capabilities = capabilities,
         cmd = M.get_cmd(),
     })
+
+    -- Restart the LSP client
+    vim.cmd("LspRestart")
 end
 
 return M
