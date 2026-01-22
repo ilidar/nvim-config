@@ -1,0 +1,68 @@
+return {
+    -- Auto pairs
+    {
+        "windwp/nvim-autopairs",
+        event = "InsertEnter",
+        opts = {},
+    },
+
+    -- Comments
+    {
+        "numToStr/Comment.nvim",
+        event = { "BufReadPre", "BufNewFile" },
+        opts = {
+            padding = true,
+            sticky = true,
+            toggler = {
+                line = "<leader>cc",
+                block = "<leader>bc",
+            },
+            opleader = {
+                line = "<leader>c",
+                block = "<leader>b",
+            },
+        },
+    },
+
+    -- Indent guides
+    {
+        "lukas-reineke/indent-blankline.nvim",
+        event = { "BufReadPre", "BufNewFile" },
+        main = "ibl",
+        opts = {
+            indent = {
+                char = "│",
+            },
+            scope = {
+                enabled = true,
+            },
+        },
+    },
+
+    -- Todo comments
+    {
+        "folke/todo-comments.nvim",
+        event = { "BufReadPre", "BufNewFile" },
+        dependencies = { "nvim-lua/plenary.nvim" },
+        opts = {},
+    },
+
+    -- Trouble (diagnostics list)
+    {
+        "folke/trouble.nvim",
+        cmd = "Trouble",
+        dependencies = { "nvim-tree/nvim-web-devicons" },
+        opts = {},
+    },
+
+    -- Registers viewer
+    {
+        "tversteeg/registers.nvim",
+        cmd = "Registers",
+        keys = {
+            { '"', mode = { "n", "v" } },
+            { "<C-R>", mode = "i" },
+        },
+        opts = {},
+    },
+}
