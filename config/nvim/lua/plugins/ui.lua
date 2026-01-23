@@ -42,6 +42,7 @@ return {
             },
             view = {
                 width = 30,
+                adaptive_size = true,
             },
         },
     },

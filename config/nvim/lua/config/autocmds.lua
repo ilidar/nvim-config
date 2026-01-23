@@ -23,6 +23,23 @@ autocmd("TextYankPost", {
 })
 
 ------------------------------------------------------------
+-- Relative numbers only in normal mode
+------------------------------------------------------------
+autocmd({ "InsertEnter" }, {
+    group = augroup("relative_number_insert", { clear = true }),
+    callback = function()
+        vim.opt_local.relativenumber = false
+    end,
+})
+
+autocmd({ "InsertLeave" }, {
+    group = augroup("relative_number_insert", { clear = false }),
+    callback = function()
+        vim.opt_local.relativenumber = true
+    end,
+})
+
+------------------------------------------------------------
 -- Resize splits on window resize
 ------------------------------------------------------------
 autocmd("VimResized", {
