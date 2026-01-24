@@ -52,7 +52,16 @@ return {
         "folke/trouble.nvim",
         cmd = "Trouble",
         dependencies = { "nvim-tree/nvim-web-devicons" },
-        opts = {},
+        opts = {
+            modes = {
+                symbols = {
+                    win = {
+                        position = "right",
+                        size = 0.25,
+                    },
+                },
+            },
+        }
     },
 
     -- Registers viewer
@@ -60,7 +69,7 @@ return {
         "tversteeg/registers.nvim",
         cmd = "Registers",
         keys = {
-            { '"', mode = { "n", "v" } },
+            { '"',     mode = { "n", "v" } },
             { "<C-R>", mode = "i" },
         },
         opts = {},
