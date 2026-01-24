@@ -2,7 +2,7 @@ return {
     -- Mason for installing LSP servers
     {
         "mason-org/mason.nvim",
-        cmd = "Mason",
+        lazy = false,
         build = ":MasonUpdate",
         opts = {
             ui = {
@@ -36,7 +36,7 @@ return {
                 "dockerls",
                 "clangd",
             },
-            automatic_installation = true,
+            automatic_enable = true,
         },
     },
 
@@ -68,6 +68,12 @@ return {
                     source = true,
                 },
             })
+
+            local capabilities = vim.tbl_deep_extend(
+                "force",
+                vim.lsp.protocol.make_client_capabilities(),
+                require("lsp-file-operations").default_capabilities()
+            )
 
             -- LSP keymaps on attach
             vim.api.nvim_create_autocmd("LspAttach", {
@@ -111,6 +117,7 @@ return {
             }
 
             for _, server in ipairs(servers) do
+                vim.lsp.config(server, { capabilities = capabilities })
                 vim.lsp.enable(server)
             end
         end,
