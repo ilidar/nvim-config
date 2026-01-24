@@ -62,4 +62,11 @@ return {
             autocmd = { enabled = true },
         },
     },
+
+    -- LSP progress indicator
+    {
+        "j-hui/fidget.nvim",
+        event = "LspAttach",
+        opts = {},
+    },
 }
