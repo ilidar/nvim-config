@@ -90,7 +90,7 @@ map("n", "<A-9>", ":BufferGoto 9<CR>", opts)
 ------------------------------------------------------------
 -- Clang
 ------------------------------------------------------------
-map("n", "<leader>sh", ":ClangdSwitchSourceHeader<CR>", opts)
+map("n", "<leader>sh", ":LspClangdSwitchSourceHeader<CR>", opts)
 
 ------------------------------------------------------------
 -- Copilot
