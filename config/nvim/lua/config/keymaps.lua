@@ -3,6 +3,12 @@ local map = vim.keymap.set
 local opts = { noremap = true, silent = true }
 
 ------------------------------------------------------------
+-- Commenting (native Neovim 0.11+)
+------------------------------------------------------------
+map("n", "<leader>cc", "gcc", { remap = true, desc = "Toggle comment" })
+map("x", "<leader>cc", "gc", { remap = true, desc = "Toggle comment" })
+
+------------------------------------------------------------
 -- Window navigation
 ------------------------------------------------------------
 map("n", "<C-j>", "<C-W>j", opts)
@@ -91,9 +97,3 @@ map("n", "<A-9>", ":BufferGoto 9<CR>", opts)
 -- Clang
 ------------------------------------------------------------
 map("n", "<leader>sh", ":LspClangdSwitchSourceHeader<CR>", opts)
-
-------------------------------------------------------------
--- Copilot
-------------------------------------------------------------
-vim.api.nvim_set_keymap("i", "<M-l>", 'copilot#Accept("<CR>")', { expr = true, silent = true, noremap = true })
-vim.api.nvim_set_keymap("i", "<M-j>", "copilot#Next()", { expr = true, silent = true, noremap = true })

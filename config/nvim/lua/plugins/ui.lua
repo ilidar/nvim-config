@@ -47,13 +47,6 @@ return {
         },
     },
 
-    -- Better UI elements
-    {
-        "stevearc/dressing.nvim",
-        event = "VeryLazy",
-        opts = {},
-    },
-
     -- Code action lightbulb
     {
         "kosayoda/nvim-lightbulb",

@@ -6,24 +6,6 @@ return {
         opts = {},
     },
 
-    -- Comments
-    {
-        "numToStr/Comment.nvim",
-        event = { "BufReadPre", "BufNewFile" },
-        opts = {
-            padding = true,
-            sticky = true,
-            toggler = {
-                line = "<leader>cc",
-                block = "<leader>bc",
-            },
-            opleader = {
-                line = "<leader>c",
-                block = "<leader>b",
-            },
-        },
-    },
-
     -- Indent guides
     {
         "lukas-reineke/indent-blankline.nvim",
