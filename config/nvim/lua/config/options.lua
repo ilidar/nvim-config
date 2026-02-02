@@ -46,14 +46,13 @@ opt.cursorline = true     -- Cursor line highlight
 opt.title = true
 opt.clipboard = "unnamedplus"
 opt.foldmethod = "expr"
-opt.foldexpr = "nvim_treesitter#foldexpr()"
+opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 opt.foldlevel = 99
 opt.formatoptions:remove("o")
 
 ------------------------------------------------------------
 -- Colors
 ------------------------------------------------------------
-vim.cmd("syntax on")
 opt.background = "dark"
 opt.encoding = "utf8"
 
