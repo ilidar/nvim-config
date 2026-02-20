@@ -9,14 +9,6 @@ map("n", "<leader>cc", "gcc", { remap = true, desc = "Toggle comment" })
 map("x", "<leader>cc", "gc", { remap = true, desc = "Toggle comment" })
 
 ------------------------------------------------------------
--- Window navigation
-------------------------------------------------------------
-map("n", "<C-j>", "<C-W>j", opts)
-map("n", "<C-k>", "<C-W>k", opts)
-map("n", "<C-h>", "<C-W>h", opts)
-map("n", "<C-l>", "<C-W>l", opts)
-
-------------------------------------------------------------
 -- Clear search highlight
 ------------------------------------------------------------
 map("n", "<leader><CR>", ":noh<CR>", opts)
@@ -58,22 +50,35 @@ map("n", "<leader>xL", "<cmd>Trouble loclist toggle<CR>", opts)
 map("n", "<leader>xQ", "<cmd>Trouble qflist toggle<CR>", opts)
 
 ------------------------------------------------------------
--- DAP (Debug Adapter Protocol)
+-- Formatting (conform.nvim)
 ------------------------------------------------------------
-map("n", "<F5>", "<cmd>lua require('dap').continue()<CR>", opts)
-map("n", "<F10>", "<cmd>lua require('dap').step_over()<CR>", opts)
-map("n", "<F11>", "<cmd>lua require('dap').step_into()<CR>", opts)
-map("n", "<F12>", "<cmd>lua require('dap').step_out()<CR>", opts)
-map("n", "<F7>", "<cmd>lua require('dap').toggle_breakpoint()<CR>", opts)
-map("n", "<F8>", "<cmd>lua require('dap').toggle_breakpoint(vim.fn.input('Breakpoint Condition: '), nil, nil, true)<CR>", opts)
-map("n", "<leader>dv", '<cmd>lua require("dap.ui.widgets").hover()<CR>', opts)
-map("n", "<leader>df", '<cmd>lua local w = require("dap.ui.widgets"); w.centered_float(w.frames)<CR>', opts)
-map("n", "<leader>ds", '<cmd>lua local w = require("dap.ui.widgets"); w.centered_float(w.scopes)<CR>', opts)
-map("n", "<leader>dS", '<cmd>lua require("dap.ui.widgets").sidebar(widgets.scopes).toggle()<CR>', opts)
-map("n", "<leader>dr", '<cmd>lua require("dap.repl").toggle({height=15})<CR>', opts)
-map("n", "<leader>dg", '<cmd>lua require("dap").run_to_cursor()<CR>', opts)
-map("n", "<leader>dc", '<cmd>lua require("dap").disconnect({ terminateDebuggee = true }); require("dap").close()<CR>', opts)
-map("n", "<leader>du", '<cmd>lua require("dapui").toggle()<CR>', opts)
+map("n", "<leader>cf", function()
+    require("conform").format({ async = true, lsp_format = "fallback" })
+end, { noremap = true, silent = true, desc = "Format buffer" })
+
+------------------------------------------------------------
+-- LSP (attached to buffer on LspAttach)
+------------------------------------------------------------
+vim.api.nvim_create_autocmd("LspAttach", {
+    group = vim.api.nvim_create_augroup("UserLspConfig", { clear = true }),
+    callback = function(ev)
+        local bufopts = { buffer = ev.buf, silent = true }
+
+        map("n", "gD", vim.lsp.buf.declaration, vim.tbl_extend("force", bufopts, { desc = "Go to declaration" }))
+        map("n", "gd", "<cmd>Telescope lsp_definitions<CR>", vim.tbl_extend("force", bufopts, { desc = "Go to definition" }))
+        map("n", "gr", "<cmd>Telescope lsp_references<CR>", vim.tbl_extend("force", bufopts, { desc = "Show references" }))
+        map("n", "gi", "<cmd>Telescope lsp_implementations<CR>", vim.tbl_extend("force", bufopts, { desc = "Show implementations" }))
+        map("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", vim.tbl_extend("force", bufopts, { desc = "Type definition" }))
+        map("n", "K", vim.lsp.buf.hover, vim.tbl_extend("force", bufopts, { desc = "Hover documentation" }))
+        map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, vim.tbl_extend("force", bufopts, { desc = "Code action" }))
+        map("n", "<leader>rn", vim.lsp.buf.rename, vim.tbl_extend("force", bufopts, { desc = "Rename symbol" }))
+        map("n", "<leader>D", "<cmd>Telescope diagnostics bufnr=0<CR>", vim.tbl_extend("force", bufopts, { desc = "Buffer diagnostics" }))
+        map("n", "<leader>d", vim.diagnostic.open_float, vim.tbl_extend("force", bufopts, { desc = "Line diagnostics" }))
+        map("n", "[d", function() vim.diagnostic.jump({ count = -1 }) end, vim.tbl_extend("force", bufopts, { desc = "Previous diagnostic" }))
+        map("n", "]d", function() vim.diagnostic.jump({ count = 1 }) end, vim.tbl_extend("force", bufopts, { desc = "Next diagnostic" }))
+        map("n", "<leader>rs", ":LspRestart<CR>", vim.tbl_extend("force", bufopts, { desc = "Restart LSP" }))
+    end,
+})
 
 ------------------------------------------------------------
 -- barbar.nvim (buffer management)

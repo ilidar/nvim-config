@@ -6,7 +6,7 @@ local g = vim.g
 -- Leader key (must be set before lazy.nvim)
 ------------------------------------------------------------
 g.mapleader = ","
-g.maplocalleader = ","
+g.maplocalleader = "\\"
 
 ------------------------------------------------------------
 -- Disable netrw (recommended for nvim-tree)
@@ -15,17 +15,10 @@ g.loaded_netrw = 1
 g.loaded_netrwPlugin = 1
 
 ------------------------------------------------------------
--- General
-------------------------------------------------------------
-opt.filetype.plugin = true
-opt.filetype.indent = true
-
-------------------------------------------------------------
 -- UI
 ------------------------------------------------------------
 opt.hlsearch = true
 opt.expandtab = true      -- Use spaces instead of tabs
-opt.hidden = true         -- Enable background buffers
 opt.ignorecase = true     -- Ignore case
 opt.joinspaces = false    -- No double spaces with join
 opt.list = true           -- Show some invisible characters
@@ -54,7 +47,6 @@ opt.formatoptions:remove("o")
 -- Colors
 ------------------------------------------------------------
 opt.background = "dark"
-opt.encoding = "utf8"
 
 ------------------------------------------------------------
 -- Backups

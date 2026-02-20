@@ -1,10 +1,6 @@
 return {
     "nvim-telescope/telescope.nvim",
     cmd = "Telescope",
-    keys = {
-        { "<C-n>", "<cmd>Telescope find_files<CR>", desc = "Find files" },
-        { "<C-g>", "<cmd>Telescope live_grep<CR>", desc = "Live grep" },
-    },
     dependencies = {
         "nvim-lua/plenary.nvim",
         "nvim-tree/nvim-web-devicons",

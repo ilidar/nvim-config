@@ -62,6 +62,16 @@ autocmd("FileType", {
 })
 
 ------------------------------------------------------------
+-- Enforce formatoptions (some ftplugins override this)
+------------------------------------------------------------
+autocmd("FileType", {
+    group = augroup("formatoptions", { clear = true }),
+    callback = function()
+        vim.opt_local.formatoptions:remove("o")
+    end,
+})
+
+------------------------------------------------------------
 -- Auto create directories when saving
 ------------------------------------------------------------
 autocmd("BufWritePre", {
@@ -70,7 +80,7 @@ autocmd("BufWritePre", {
         if event.match:match("^%w%w+://") then
             return
         end
-        local file = vim.loop.fs_realpath(event.match) or event.match
+        local file = vim.uv.fs_realpath(event.match) or event.match
         vim.fn.mkdir(vim.fn.fnamemodify(file, ":p:h"), "p")
     end,
 })
