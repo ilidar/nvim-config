@@ -35,7 +35,6 @@ return {
                 "yamlls",
                 "dockerls",
                 "clangd",
-                "cmake",
                 "texlab",
                 "remark_ls",
             },
@@ -91,7 +90,6 @@ return {
                 "yamlls",
                 "dockerls",
                 "clangd",
-                "cmake",
                 "texlab",
                 "remark_ls",
             }
