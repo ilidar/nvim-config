@@ -76,7 +76,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
         map("n", "<leader>d", vim.diagnostic.open_float, vim.tbl_extend("force", bufopts, { desc = "Line diagnostics" }))
         map("n", "[d", function() vim.diagnostic.jump({ count = -1 }) end, vim.tbl_extend("force", bufopts, { desc = "Previous diagnostic" }))
         map("n", "]d", function() vim.diagnostic.jump({ count = 1 }) end, vim.tbl_extend("force", bufopts, { desc = "Next diagnostic" }))
-        map("n", "<leader>rs", ":LspRestart<CR>", vim.tbl_extend("force", bufopts, { desc = "Restart LSP" }))
+        map("n", "<leader>rs", ":lsp restart<CR>", vim.tbl_extend("force", bufopts, { desc = "Restart LSP" }))
     end,
 })
 

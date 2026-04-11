@@ -37,20 +37,25 @@ return {
                 "clangd",
                 "texlab",
                 "remark_ls",
+                "gopls",
             },
             automatic_enable = true,
         },
     },
 
-    -- LSP Config (minimal - native configs in lsp/ folder)
+    -- LSP Config (provides bundled server configs + clangd commands)
     {
         "neovim/nvim-lspconfig",
-        event = { "BufReadPre", "BufNewFile" },
+        lazy = true,
         dependencies = {
             "saghen/blink.cmp",
             { "antosha417/nvim-lsp-file-operations", config = true },
         },
         config = function()
+            vim.api.nvim_create_user_command("LspLog", function()
+                vim.cmd("tabnew " .. vim.lsp.log.get_filename())
+            end, { desc = "Opens the LSP client log" })
+
             -- Diagnostic configuration
             vim.diagnostic.config({
                 signs = {
@@ -71,33 +76,15 @@ return {
                 },
             })
 
-            local capabilities = vim.tbl_deep_extend(
-                "force",
-                vim.lsp.protocol.make_client_capabilities(),
+            -- Merge blink.cmp + lsp-file-operations capabilities globally
+            -- blink.cmp already includes nvim defaults via get_lsp_capabilities()
+            local capabilities = require("blink.cmp").get_lsp_capabilities(
                 require("lsp-file-operations").default_capabilities()
             )
 
-            -- Enable all LSP servers defined in lsp/ folder
-            -- Neovim 0.11+ automatically loads configs from lsp/*.lua
-            local servers = {
-                "lua_ls",
-                "bashls",
-                "pyright",
-                "rust_analyzer",
-                "ts_ls",
-                "cssls",
-                "html",
-                "yamlls",
-                "dockerls",
-                "clangd",
-                "texlab",
-                "remark_ls",
-            }
-
-            for _, server in ipairs(servers) do
-                vim.lsp.config(server, { capabilities = capabilities })
-                vim.lsp.enable(server)
-            end
+            vim.lsp.config('*', {
+                capabilities = capabilities,
+            })
         end,
     },
 }
