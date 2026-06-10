@@ -3,16 +3,6 @@ local autocmd = vim.api.nvim_create_autocmd
 local augroup = vim.api.nvim_create_augroup
 
 ------------------------------------------------------------
--- Dockerfile autodetect
-------------------------------------------------------------
-autocmd({ "BufNewFile", "BufRead" }, {
-    pattern = "Dockerfile*",
-    callback = function()
-        vim.opt_local.syntax = "dockerfile"
-    end,
-})
-
-------------------------------------------------------------
 -- Highlight on yank
 ------------------------------------------------------------
 autocmd("TextYankPost", {
