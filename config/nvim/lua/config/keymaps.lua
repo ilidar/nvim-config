@@ -64,6 +64,15 @@ vim.api.nvim_create_autocmd("LspAttach", {
     callback = function(ev)
         local bufopts = { buffer = ev.buf, silent = true }
 
+        -- Inlay hints (enabled by default for servers that support them)
+        local client = vim.lsp.get_client_by_id(ev.data.client_id)
+        if client and client:supports_method("textDocument/inlayHint") then
+            vim.lsp.inlay_hint.enable(true, { bufnr = ev.buf })
+        end
+        map("n", "<leader>th", function()
+            vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = ev.buf }), { bufnr = ev.buf })
+        end, vim.tbl_extend("force", bufopts, { desc = "Toggle inlay hints" }))
+
         map("n", "gD", vim.lsp.buf.declaration, vim.tbl_extend("force", bufopts, { desc = "Go to declaration" }))
         map("n", "gd", "<cmd>Telescope lsp_definitions<CR>", vim.tbl_extend("force", bufopts, { desc = "Go to definition" }))
         map("n", "gr", "<cmd>Telescope lsp_references<CR>", vim.tbl_extend("force", bufopts, { desc = "Show references" }))
