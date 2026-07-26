@@ -5,7 +5,7 @@
 --   lua/config/autocmds.lua - Autocommands
 --   lua/config/lazy.lua     - Plugin manager setup
 --   lua/plugins/            - Plugin specifications
---   lsp/                    - Native LSP configurations (Neovim 0.11+)
+--   after/lsp/              - Native LSP overrides (Neovim 0.12+)
 
 -- Load options first (includes leader key)
 require("config.options")

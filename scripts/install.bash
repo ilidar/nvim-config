@@ -1,26 +1,21 @@
 #!/usr/bin/env bash
 
-set -e
+set -euo pipefail
 
-SCRIPT_PATH=$(readlink -f "$0")
-SCRIPT_DIR_PATH=$(dirname "$SCRIPT_PATH")
-REPO_DIR_PATH=$(realpath "$SCRIPT_DIR_PATH/..")
-
-delete_existing_link()
-{
-    if [ -L ${1} ] ; then
-        if [ -e ${1} ] ; then
-            rm $1
-        fi
-    fi
-}
+SCRIPT_DIR_PATH="$(CDPATH= cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)"
+REPO_DIR_PATH="$(dirname -- "$SCRIPT_DIR_PATH")"
 
 DOTFILE_PATH="$REPO_DIR_PATH/config/nvim"
-DOTFILE_LINK_PATH="$HOME/.config/nvim"
+DOTFILE_LINK_PATH="${XDG_CONFIG_HOME:-$HOME/.config}/nvim"
 
-echo "Linking dir $DOTFILE_PATH to $DOTFILE_LINK_PATH"
+mkdir -p -- "$(dirname -- "$DOTFILE_LINK_PATH")"
 
-mkdir -p $HOME/.config
-delete_existing_link $DOTFILE_LINK_PATH
+if [[ -L "$DOTFILE_LINK_PATH" ]]; then
+    rm -- "$DOTFILE_LINK_PATH"
+elif [[ -e "$DOTFILE_LINK_PATH" ]]; then
+    printf 'Refusing to replace existing path: %s\n' "$DOTFILE_LINK_PATH" >&2
+    exit 1
+fi
 
-ln -s -f "$DOTFILE_PATH" "$DOTFILE_LINK_PATH"
+ln -s -- "$DOTFILE_PATH" "$DOTFILE_LINK_PATH"
+printf 'Linked %s -> %s\n' "$DOTFILE_LINK_PATH" "$DOTFILE_PATH"

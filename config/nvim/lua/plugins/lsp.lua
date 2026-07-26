@@ -15,6 +15,37 @@ return {
         },
     },
 
+    -- Install formatter executables that are not managed by mason-lspconfig
+    {
+        "WhoIsSethDaniel/mason-tool-installer.nvim",
+        event = "VeryLazy",
+        dependencies = { "mason-org/mason.nvim" },
+        opts = {
+            ensure_installed = {
+                "stylua",
+                "isort",
+                "black",
+                "prettier",
+                "djlint",
+                "clang-format",
+            },
+            run_on_start = true,
+            start_delay = 3000,
+            debounce_hours = 24,
+        },
+    },
+
+    -- Lazily expose Neovim/plugin libraries to lua_ls
+    {
+        "folke/lazydev.nvim",
+        ft = "lua",
+        opts = {
+            library = {
+                { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+            },
+        },
+    },
+
     -- Mason-lspconfig bridge
     {
         "mason-org/mason-lspconfig.nvim",
@@ -39,7 +70,6 @@ return {
                 "remark_ls",
                 "gopls",
             },
-            automatic_enable = true,
         },
     },
 
@@ -53,17 +83,17 @@ return {
         },
         config = function()
             vim.api.nvim_create_user_command("LspLog", function()
-                vim.cmd("tabnew " .. vim.lsp.log.get_filename())
-            end, { desc = "Opens the LSP client log" })
+                vim.cmd("tabnew " .. vim.fn.fnameescape(vim.lsp.log.get_filename()))
+            end, { desc = "Open the LSP client log" })
 
             -- Diagnostic configuration
             vim.diagnostic.config({
                 signs = {
                     text = {
-                        [vim.diagnostic.severity.ERROR] = " ",
-                        [vim.diagnostic.severity.WARN] = " ",
-                        [vim.diagnostic.severity.HINT] = "󰠠 ",
-                        [vim.diagnostic.severity.INFO] = " ",
+                        [vim.diagnostic.severity.ERROR] = "󰅚 ",
+                        [vim.diagnostic.severity.WARN] = "󰀪 ",
+                        [vim.diagnostic.severity.HINT] = "󰌶 ",
+                        [vim.diagnostic.severity.INFO] = "󰋽 ",
                     },
                 },
                 virtual_text = true,
@@ -82,7 +112,7 @@ return {
                 require("lsp-file-operations").default_capabilities()
             )
 
-            vim.lsp.config('*', {
+            vim.lsp.config("*", {
                 capabilities = capabilities,
             })
         end,

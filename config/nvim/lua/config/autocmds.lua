@@ -13,19 +13,26 @@ autocmd("TextYankPost", {
 })
 
 ------------------------------------------------------------
--- Relative numbers only in normal mode
+-- Relative numbers only in the active window's normal mode
 ------------------------------------------------------------
-autocmd({ "InsertEnter" }, {
-    group = augroup("relative_number_insert", { clear = true }),
+local relative_number_group = augroup("relative_number", { clear = true })
+
+autocmd({ "BufEnter", "FocusGained", "InsertLeave", "WinEnter" }, {
+    group = relative_number_group,
     callback = function()
-        vim.opt_local.relativenumber = false
+        local mode = vim.api.nvim_get_mode().mode
+        if vim.wo.number and not mode:match("^i") then
+            vim.wo.relativenumber = true
+        end
     end,
 })
 
-autocmd({ "InsertLeave" }, {
-    group = augroup("relative_number_insert", { clear = false }),
+autocmd({ "BufLeave", "FocusLost", "InsertEnter", "WinLeave" }, {
+    group = relative_number_group,
     callback = function()
-        vim.opt_local.relativenumber = true
+        if vim.wo.number then
+            vim.wo.relativenumber = false
+        end
     end,
 })
 

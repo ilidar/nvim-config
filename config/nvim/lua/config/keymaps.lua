@@ -1,6 +1,5 @@
 -- Keymaps configuration
 local map = vim.keymap.set
-local opts = { noremap = true, silent = true }
 
 ------------------------------------------------------------
 -- Commenting (native Neovim 0.11+)
@@ -11,50 +10,60 @@ map("x", "<leader>cc", "gc", { remap = true, desc = "Toggle comment" })
 ------------------------------------------------------------
 -- Clear search highlight
 ------------------------------------------------------------
-map("n", "<leader><CR>", ":noh<CR>", opts)
+map("n", "<leader><CR>", "<cmd>nohlsearch<CR>", { desc = "Clear search highlight" })
 
 ------------------------------------------------------------
 -- Search
 ------------------------------------------------------------
-map("n", "<space>", "/", opts)
-map("n", "<C-space>", "?", opts)
+map("n", "<space>", "/", { desc = "Search forward" })
+map("n", "<C-space>", "?", { desc = "Search backward" })
 
 ------------------------------------------------------------
 -- Tabs
 ------------------------------------------------------------
-map("n", "<leader>tn", ":tabnew<CR>", opts)
-map("n", "<leader>to", ":tabonly<CR>", opts)
-map("n", "<leader>tc", ":tabclose<CR>", opts)
-map("n", "<leader>tm", ":tabmove<CR>", opts)
-map("n", "<leader>tl", ":tabnext<CR>", opts)
+map("n", "<leader>tn", "<cmd>tabnew<CR>", { desc = "New tab" })
+map("n", "<leader>to", "<cmd>tabonly<CR>", { desc = "Close other tabs" })
+map("n", "<leader>tc", "<cmd>tabclose<CR>", { desc = "Close tab" })
+map("n", "<leader>tm", "<cmd>tabmove<CR>", { desc = "Move tab to end" })
+map("n", "<leader>tl", "<cmd>tabnext<CR>", { desc = "Next tab" })
 
 ------------------------------------------------------------
 -- Telescope
 ------------------------------------------------------------
-map("n", "<C-n>", "<cmd>Telescope find_files<CR>", opts)
-map("n", "<C-g>", "<cmd>Telescope live_grep<CR>", opts)
+map("n", "<C-n>", "<cmd>Telescope find_files<CR>", { desc = "Find files" })
+map("n", "<C-g>", "<cmd>Telescope live_grep<CR>", { desc = "Live grep" })
 
 ------------------------------------------------------------
 -- nvim-tree
 ------------------------------------------------------------
-map("n", "<leader>nn", "<cmd>NvimTreeToggle<CR>", opts)
+map("n", "<leader>nn", "<cmd>NvimTreeToggle<CR>", { desc = "Toggle file explorer" })
 
 ------------------------------------------------------------
 -- Trouble
 ------------------------------------------------------------
-map("n", "<leader>xx", "<cmd>Trouble diagnostics toggle<CR>", opts)
-map("n", "<leader>xX", "<cmd>Trouble diagnostics toggle filter.buf=0<CR>", opts)
-map("n", "<leader>so", "<cmd>Trouble symbols toggle focus=false<CR>", opts)
-map("n", "<leader>cl", "<cmd>Trouble lsp toggle focus=false win.position=right<CR>", opts)
-map("n", "<leader>xL", "<cmd>Trouble loclist toggle<CR>", opts)
-map("n", "<leader>xQ", "<cmd>Trouble qflist toggle<CR>", opts)
+map("n", "<leader>xx", "<cmd>Trouble diagnostics toggle<CR>", { desc = "Workspace diagnostics" })
+map(
+    "n",
+    "<leader>xX",
+    "<cmd>Trouble diagnostics toggle filter.buf=0<CR>",
+    { desc = "Buffer diagnostics" }
+)
+map("n", "<leader>so", "<cmd>Trouble symbols toggle focus=false<CR>", { desc = "Document symbols" })
+map(
+    "n",
+    "<leader>cl",
+    "<cmd>Trouble lsp toggle focus=false win.position=right<CR>",
+    { desc = "LSP definitions/references" }
+)
+map("n", "<leader>xL", "<cmd>Trouble loclist toggle<CR>", { desc = "Location list" })
+map("n", "<leader>xQ", "<cmd>Trouble qflist toggle<CR>", { desc = "Quickfix list" })
 
 ------------------------------------------------------------
 -- Formatting (conform.nvim)
 ------------------------------------------------------------
 map("n", "<leader>cf", function()
     require("conform").format({ async = true, lsp_format = "fallback" })
-end, { noremap = true, silent = true, desc = "Format buffer" })
+end, { silent = true, desc = "Format buffer" })
 
 ------------------------------------------------------------
 -- LSP (attached to buffer on LspAttach)
@@ -62,52 +71,71 @@ end, { noremap = true, silent = true, desc = "Format buffer" })
 vim.api.nvim_create_autocmd("LspAttach", {
     group = vim.api.nvim_create_augroup("UserLspConfig", { clear = true }),
     callback = function(ev)
-        local bufopts = { buffer = ev.buf, silent = true }
+        local function lsp_opts(desc)
+            return { buffer = ev.buf, silent = true, desc = desc }
+        end
 
         -- Inlay hints (enabled by default for servers that support them)
         local client = vim.lsp.get_client_by_id(ev.data.client_id)
-        if client and client:supports_method("textDocument/inlayHint") then
+        if
+            client
+            and client:supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint, ev.buf)
+        then
             vim.lsp.inlay_hint.enable(true, { bufnr = ev.buf })
         end
+        if client and client.name == "clangd" then
+            map(
+                "n",
+                "<leader>sh",
+                "<cmd>LspClangdSwitchSourceHeader<CR>",
+                lsp_opts("Switch source/header")
+            )
+        end
         map("n", "<leader>th", function()
-            vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = ev.buf }), { bufnr = ev.buf })
-        end, vim.tbl_extend("force", bufopts, { desc = "Toggle inlay hints" }))
+            vim.lsp.inlay_hint.enable(
+                not vim.lsp.inlay_hint.is_enabled({ bufnr = ev.buf }),
+                { bufnr = ev.buf }
+            )
+        end, lsp_opts("Toggle inlay hints"))
 
-        map("n", "gD", vim.lsp.buf.declaration, vim.tbl_extend("force", bufopts, { desc = "Go to declaration" }))
-        map("n", "gd", "<cmd>Telescope lsp_definitions<CR>", vim.tbl_extend("force", bufopts, { desc = "Go to definition" }))
-        map("n", "gr", "<cmd>Telescope lsp_references<CR>", vim.tbl_extend("force", bufopts, { desc = "Show references" }))
-        map("n", "gi", "<cmd>Telescope lsp_implementations<CR>", vim.tbl_extend("force", bufopts, { desc = "Show implementations" }))
-        map("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", vim.tbl_extend("force", bufopts, { desc = "Type definition" }))
-        map("n", "K", vim.lsp.buf.hover, vim.tbl_extend("force", bufopts, { desc = "Hover documentation" }))
-        map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, vim.tbl_extend("force", bufopts, { desc = "Code action" }))
-        map("n", "<leader>rn", vim.lsp.buf.rename, vim.tbl_extend("force", bufopts, { desc = "Rename symbol" }))
-        map("n", "<leader>D", "<cmd>Telescope diagnostics bufnr=0<CR>", vim.tbl_extend("force", bufopts, { desc = "Buffer diagnostics" }))
-        map("n", "<leader>d", vim.diagnostic.open_float, vim.tbl_extend("force", bufopts, { desc = "Line diagnostics" }))
-        map("n", "[d", function() vim.diagnostic.jump({ count = -1 }) end, vim.tbl_extend("force", bufopts, { desc = "Previous diagnostic" }))
-        map("n", "]d", function() vim.diagnostic.jump({ count = 1 }) end, vim.tbl_extend("force", bufopts, { desc = "Next diagnostic" }))
-        map("n", "<leader>rs", ":lsp restart<CR>", vim.tbl_extend("force", bufopts, { desc = "Restart LSP" }))
+        map("n", "gD", vim.lsp.buf.declaration, lsp_opts("Go to declaration"))
+        map("n", "gd", "<cmd>Telescope lsp_definitions<CR>", lsp_opts("Go to definition"))
+        map("n", "gr", "<cmd>Telescope lsp_references<CR>", lsp_opts("Show references"))
+        map("n", "gi", "<cmd>Telescope lsp_implementations<CR>", lsp_opts("Show implementations"))
+        map("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", lsp_opts("Type definition"))
+        map("n", "K", vim.lsp.buf.hover, lsp_opts("Hover documentation"))
+        map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, lsp_opts("Code action"))
+        map("n", "<leader>rn", vim.lsp.buf.rename, lsp_opts("Rename symbol"))
+        map(
+            "n",
+            "<leader>D",
+            "<cmd>Telescope diagnostics bufnr=0<CR>",
+            lsp_opts("Buffer diagnostics")
+        )
+        map("n", "<leader>d", vim.diagnostic.open_float, lsp_opts("Line diagnostics"))
+        map("n", "[d", function()
+            vim.diagnostic.jump({ count = -1 })
+        end, lsp_opts("Previous diagnostic"))
+        map("n", "]d", function()
+            vim.diagnostic.jump({ count = 1 })
+        end, lsp_opts("Next diagnostic"))
+        map("n", "<leader>rs", "<cmd>lsp restart<CR>", lsp_opts("Restart LSP"))
     end,
 })
 
 ------------------------------------------------------------
 -- barbar.nvim (buffer management)
 ------------------------------------------------------------
-map("n", "<A-c>", ":BufferClose<CR>", opts)
-map("n", "<A-,>", ":BufferPrevious<CR>", opts)
-map("n", "<A-.>", ":BufferNext<CR>", opts)
-map("n", "<A-<>", ":BufferMovePrevious<CR>", opts)
-map("n", "<A->>", ":BufferMoveNext<CR>", opts)
-map("n", "<A-1>", ":BufferGoto 1<CR>", opts)
-map("n", "<A-2>", ":BufferGoto 2<CR>", opts)
-map("n", "<A-3>", ":BufferGoto 3<CR>", opts)
-map("n", "<A-4>", ":BufferGoto 4<CR>", opts)
-map("n", "<A-5>", ":BufferGoto 5<CR>", opts)
-map("n", "<A-6>", ":BufferGoto 6<CR>", opts)
-map("n", "<A-7>", ":BufferGoto 7<CR>", opts)
-map("n", "<A-8>", ":BufferGoto 8<CR>", opts)
-map("n", "<A-9>", ":BufferGoto 9<CR>", opts)
-
-------------------------------------------------------------
--- Clang
-------------------------------------------------------------
-map("n", "<leader>sh", ":LspClangdSwitchSourceHeader<CR>", opts)
+map("n", "<A-c>", "<cmd>BufferClose<CR>", { desc = "Close buffer" })
+map("n", "<A-,>", "<cmd>BufferPrevious<CR>", { desc = "Previous buffer" })
+map("n", "<A-.>", "<cmd>BufferNext<CR>", { desc = "Next buffer" })
+map("n", "<A-<>", "<cmd>BufferMovePrevious<CR>", { desc = "Move buffer left" })
+map("n", "<A->>", "<cmd>BufferMoveNext<CR>", { desc = "Move buffer right" })
+for index = 1, 9 do
+    map(
+        "n",
+        "<A-" .. index .. ">",
+        "<cmd>BufferGoto " .. index .. "<CR>",
+        { desc = "Go to buffer " .. index }
+    )
+end
