@@ -6,10 +6,10 @@ return {
         opts = {
             disable_when_zoomed = true,
             keybindings = {
-                left = "<C-h>",
-                down = "<C-j>",
-                up = "<C-k>",
-                right = "<C-l>",
+                left = "<C-S-h>",
+                down = "<C-S-j>",
+                up = "<C-S-k>",
+                right = "<C-S-l>",
             },
         },
     },
