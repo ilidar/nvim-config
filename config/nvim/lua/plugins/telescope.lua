@@ -13,6 +13,7 @@ return {
         local telescope = require("telescope")
         telescope.setup({
             defaults = {
+                file_ignore_patterns = { "%.git/", "node_modules" },
                 mappings = {
                     i = {
                         ["<C-j>"] = "move_selection_next",
