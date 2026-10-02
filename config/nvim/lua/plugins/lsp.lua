@@ -1,3 +1,5 @@
+local tools = require("config.tools")
+
 return {
     -- Mason for installing LSP servers
     {
@@ -21,14 +23,8 @@ return {
         event = "VeryLazy",
         dependencies = { "mason-org/mason.nvim" },
         opts = {
-            ensure_installed = {
-                "stylua",
-                "isort",
-                "black",
-                "prettier",
-                "djlint",
-                "clang-format",
-            },
+            ensure_installed = tools.formatters,
+            auto_update = false,
             run_on_start = true,
             start_delay = 3000,
             debounce_hours = 24,
@@ -55,21 +51,9 @@ return {
             "neovim/nvim-lspconfig",
         },
         opts = {
-            ensure_installed = {
-                "lua_ls",
-                "bashls",
-                "pyright",
-                "rust_analyzer",
-                "ts_ls",
-                "cssls",
-                "html",
-                "yamlls",
-                "dockerls",
-                "clangd",
-                "texlab",
-                "remark_ls",
-                "gopls",
-            },
+            ensure_installed = tools.servers,
+            -- Do not start formatter LSPs (e.g. stylua) or unrelated installed servers.
+            automatic_enable = tools.servers,
         },
     },
 
@@ -79,7 +63,11 @@ return {
         lazy = true,
         dependencies = {
             "saghen/blink.cmp",
-            { "antosha417/nvim-lsp-file-operations", config = true },
+            {
+                "antosha417/nvim-lsp-file-operations",
+                dependencies = { "nvim-tree/nvim-tree.lua" },
+                config = true,
+            },
         },
         config = function()
             vim.api.nvim_create_user_command("LspLog", function()
@@ -115,6 +103,9 @@ return {
             vim.lsp.config("*", {
                 capabilities = capabilities,
             })
+
+            -- Use the standalone LikeC4 server available on PATH.
+            vim.lsp.enable("likec4")
         end,
     },
 }

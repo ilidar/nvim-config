@@ -12,27 +12,7 @@ return {
         },
         init = function()
             local group = vim.api.nvim_create_augroup("treesitter_setup", { clear = true })
-            local ensure_installed = {
-                "json",
-                "yaml",
-                "html",
-                "markdown",
-                "markdown_inline",
-                "bash",
-                "lua",
-                "vim",
-                "vimdoc",
-                "dockerfile",
-                "gitignore",
-                "c",
-                "cpp",
-                "python",
-                "rust",
-                "typescript",
-                "javascript",
-                "css",
-                "go",
-            }
+            local ensure_installed = require("config.tools").parsers
 
             vim.api.nvim_create_autocmd("FileType", {
                 group = group,

@@ -15,27 +15,8 @@ return {
     },
 
     -- Syntax plugins
-    { "chr4/nginx.vim", ft = "nginx" },
+    { "chr4/nginx.vim", branch = "main", ft = "nginx" },
     { "aklt/plantuml-syntax", ft = "plantuml" },
-    {
-        "likec4/likec4.nvim",
-        ft = "likec4",
-        build = "npm install -g @likec4/lsp",
-        init = function()
-            vim.filetype.add({
-                extension = {
-                    c4 = "likec4",
-                    likec4 = "likec4",
-                },
-            })
-        end,
-        config = function()
-            -- Use the standalone server instead of the plugin's default LikeC4 CLI.
-            vim.lsp.config("likec4", {
-                cmd = { "likec4-lsp", "--stdio" },
-            })
-        end,
-    },
 
     -- Git signs
     {

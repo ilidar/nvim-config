@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-SCRIPT_DIR_PATH="$(CDPATH= cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)"
+SCRIPT_DIR_PATH="$(CDPATH='' cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)"
 REPO_DIR_PATH="$(dirname -- "$SCRIPT_DIR_PATH")"
 
 DOTFILE_PATH="$REPO_DIR_PATH/config/nvim"

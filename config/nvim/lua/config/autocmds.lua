@@ -42,7 +42,11 @@ autocmd({ "BufLeave", "FocusLost", "InsertEnter", "WinLeave" }, {
 autocmd("VimResized", {
     group = augroup("resize_splits", { clear = true }),
     callback = function()
+        local current_tab = vim.api.nvim_get_current_tabpage()
         vim.cmd("tabdo wincmd =")
+        if vim.api.nvim_tabpage_is_valid(current_tab) then
+            vim.api.nvim_set_current_tabpage(current_tab)
+        end
     end,
 })
 
