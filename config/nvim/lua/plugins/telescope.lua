@@ -22,6 +22,9 @@ return {
                 },
             },
             pickers = {
+                lsp_definitions = {
+                    file_ignore_patterns = {},
+                },
                 find_files = {
                     hidden = true,
                 },
